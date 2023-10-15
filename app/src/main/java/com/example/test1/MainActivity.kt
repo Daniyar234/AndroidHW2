@@ -1,90 +1,85 @@
 package com.example.test1
-
-import android.os.Bundle
-import androidx.activity.ComponentActivity
-import androidx.activity.compose.setContent
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.Button
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.Text
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
-import com.example.test1.ui.theme.Test1Theme
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.layout.Box
-import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.res.stringResource
+import com.example.test1.ui.theme.whiteBackground
 
-class MainActivity : ComponentActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContent {
-            Test1Theme {
-                // A surface container using the 'background' color from the theme
-                Surface(modifier = Modifier.fillMaxSize(), color = MaterialTheme.colorScheme.background) {
-                    GreetingImage(
-                        stringResource(R.string.happy_birthday_text),
-                        stringResource(R.string.signature_text)
-                    )
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+@Preview
+fun Loginpage(){
+    val email = remember{ mutableStateOf("") }
+    val password = remember{ mutableStateOf("") }
+    Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.BottomCenter){
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .background(Color.White), contentAlignment = Alignment.TopCenter){
+
+        }
+        Column(
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Center,
+            modifier = Modifier
+                .fillMaxSize()
+                .fillMaxHeight()
+                .background(whiteBackground)
+                .padding(10.dp)
+        ) {
+            Text(
+                text = "Sign In",
+                style = TextStyle(
+                    fontWeight = FontWeight.SemiBold
+                )
+            )
+            Spacer(modifier =  Modifier.padding(20.dp))
+            Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                OutlinedTextField(value = email.value, onValueChange = {email.value = it}, label = { Text(
+                    text = "Email")}, placeholder = { Text(text = "Email")},
+                    singleLine = true,
+                    modifier = Modifier.fillMaxWidth(8.8f)
+                )
+
+                OutlinedTextField(value = password.value, onValueChange = {password.value = it}, label = { Text(
+                    text = "Password")}, placeholder = { Text(text = "Password")},
+                    singleLine = true,
+                    modifier = Modifier.fillMaxWidth(8.8f)
+                )
+                
+                Spacer(modifier = Modifier.padding(10.dp))
+                Button(onClick = { },
+                    modifier = Modifier
+                        .fillMaxWidth(0.9f)
+                        .height(55.dp)) {
+                    Text(text = "Sign in")
                 }
+                Spacer(modifier = Modifier.padding(20.dp))
+                Text(text = "Don't have account",
+                    modifier = Modifier.clickable(onClick = {})
+                )
             }
         }
     }
 }
-
-@Composable
-fun GreetingText(message: String, from: String, modifier: Modifier = Modifier) {
-
-    Column(modifier = modifier.padding(8.dp), verticalArrangement = Arrangement.Center) {
-        Text(
-            text = message,
-            fontSize = 100.sp,
-            lineHeight = 116.sp,
-            textAlign = TextAlign.Center,
-            modifier = Modifier.padding(top = 16.dp)
-        )
-        Text(
-            text = from,
-            fontSize = 36.sp,
-            modifier = Modifier
-                .padding(16.dp)
-                .align(alignment = Alignment.CenterHorizontally)
-
-        )
-    }
-    }
-@Composable
-fun GreetingImage(message: String, from: String, modifier: Modifier = Modifier) {
-    val image = painterResource(R.drawable.bg_compose_background)
-    Box {
-        Image(
-            painter = image,
-            contentDescription = null,
-
-
-        )
-        GreetingText(message = message, from = from, modifier = modifier
-            .padding(8.dp)
-            .fillMaxSize())
-    }
-}
-
-@Preview(showBackground = true)
-@Composable
-fun BirthdayCardPreview() {
-    Test1Theme {
-        GreetingImage( stringResource(R.string.happy_birthday_text), stringResource(R.string.signature_text))
-    }
-}
-//Daniyarrrr
